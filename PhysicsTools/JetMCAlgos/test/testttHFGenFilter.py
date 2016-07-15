@@ -116,13 +116,13 @@ process.matchGenBHadron = matchGenBHadron.clone(
 
 # Plugin for analysing C hadrons
 # MUST use the same particle collection as in selectedHadronsAndPartons
-from PhysicsTools.JetMCAlgos.GenHFHadronMatcher_cff import matchGenCHadron
-process.matchGenCHadron = matchGenCHadron.clone(
-    genParticles = genParticleCollection,
-    jetFlavourInfos = "genJetFlavourInfos"
-)
+#from PhysicsTools.JetMCAlgos.GenHFHadronMatcher_cff import matchGenCHadron
+#process.matchGenCHadron = matchGenCHadron.clone(
+#    genParticles = genParticleCollection,
+#    jetFlavourInfos = "genJetFlavourInfos"
+#)
 
-process.load("PhysicsTools/JetMCAlgos/GenHFHadronMatcher_cfi")
+process.load("PhysicsTools/JetMCAlgos/ttHFGenFilter_cfi")
 
 
 ## configuring the testing analyzer that produces output tree
@@ -152,14 +152,14 @@ process.load("PhysicsTools/JetMCAlgos/GenHFHadronMatcher_cfi")
 #)
 
 ## Configure test filter
-process.ttHFGenFilter = cms.EDFilter("ttHFGenFilter",
-    genBHadFlavour = cms.InputTag("matchGenBHadron", "genBHadFlavour"),
-    genBHadFromTopWeakDecay = cms.InputTag("matchGenBHadron", "genBHadFromTopWeakDecay"),
-    genBHadPlusMothers = cms.InputTag("matchGenBHadron", "genBHadPlusMothers"),
-    genBHadPlusMothersIndices = cms.InputTag("matchGenBHadron", "genBHadPlusMothersIndices"),
-    genBHadIndex = cms.InputTag("matchGenBHadron", "genBHadIndex"),
-    filter = cms.bool(True)
-)
+#process.ttHFGenFilter = cms.EDFilter("ttHFGenFilter",
+#    genBHadFlavour = cms.InputTag("matchGenBHadron", "genBHadFlavour"),
+#    genBHadFromTopWeakDecay = cms.InputTag("matchGenBHadron", "genBHadFromTopWeakDecay"),
+#    genBHadPlusMothers = cms.InputTag("matchGenBHadron", "genBHadPlusMothers"),
+#    genBHadPlusMothersIndices = cms.InputTag("matchGenBHadron", "genBHadPlusMothersIndices"),
+#    genBHadIndex = cms.InputTag("matchGenBHadron", "genBHadIndex"),
+#    filter = cms.bool(True)
+#)
 ## Output root file
 #process.TFileService = cms.Service("TFileService",
 #    fileName = cms.string("genTtbarIdFilter.root")
