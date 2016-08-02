@@ -12,8 +12,10 @@ process.options = cms.untracked.PSet(
 )
 ## Set up command line options
 options = VarParsing ('analysis')
+options.register( "outName", "testrun", VarParsing.multiplicity.singleton, VarParsing.varType.string, "name and path of the output files (without extension)" )
 options.register('runOnGenOrAODsim', True, VarParsing.multiplicity.singleton, VarParsing.varType.bool, "GEN SIM")
 options.register( "skipEvents", 0, VarParsing.multiplicity.singleton, VarParsing.varType.int, "Number of events to skip" )
+
 options.parseArguments()
 
 
@@ -88,7 +90,8 @@ process.genJetFlavourInfos = ak4JetFlavourInfos.clone(
 from PhysicsTools.JetMCAlgos.GenHFHadronMatcher_cff import matchGenBHadron
 process.matchGenBHadron = matchGenBHadron.clone(
     genParticles = genParticleCollection,
-    jetFlavourInfos = "genJetFlavourInfos"
+    jetFlavourInfos = "genJetFlavourInfos",
+    onlyJetClusteredHadrons = cms.bool(False)
 )
 
 # Plugin for analysing C hadrons
@@ -145,7 +148,7 @@ process.USER = cms.OutputModule("PoolOutputModule",
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('p1')
     ),
-    fileName = cms.untracked.string('Filtered_Events.root')
+    fileName = cms.untracked.string(options.outName+'_Filtered_Events.root')
 )
 ## Output root file
 #process.TFileService = cms.Service("TFileService",
